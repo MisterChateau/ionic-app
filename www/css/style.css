@@ -1,1 +1,63 @@
 /* Empty. Add your own CSS if you like */
+/* color stuff */
+ion-content {
+	background: url("../img/eugena_bandeau.jpg") repeat;
+	-webkit-background-size: cover;
+
+}
+
+ion-content h1 {
+	color: #FFF;
+}
+
+.item-complex .item-content, .item-radio .item-content{
+	background-color: #FFF;
+	border-color:  #AAA;
+	color: #111111;
+}
+
+.view, .pane {
+	background-color: #FFF;
+}
+
+/* states & animation */
+
+
+/* Login page*/
+
+.logo {
+	display: block;
+	margin: 5px auto;
+}
+
+.login .item {
+	border-color: #4A87EE !important;
+}
+
+.login label, .login .button{
+	margin: 5px 0;
+	width: 100%;
+}
+/* Leave page*/
+.leave .card{
+	width: 100%;
+}
+
+ion-content .button{
+	width: 100%;
+	margin-top: 10px;
+}
+
+.checkbox{
+	float: left;
+}
+
+.modal ion-content{
+	background-color: #FFF;
+}
+
+
+/* Welcome page*/
+
+
+/* Activity report page*/

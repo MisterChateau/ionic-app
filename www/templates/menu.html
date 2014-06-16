@@ -9,18 +9,21 @@
 
   <ion-side-menu side="left">
     <header class="bar bar-header bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title">Menu</h1>
     </header>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item nav-clear menu-close href="#/app/search">
-          Search
+        <ion-item ui-sref-active="menu-item-active" nav-clear menu-close ui-sref="app.welcome">
+          Acceuil
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/browse">
-          Browse
+        <ion-item ui-sref-active="menu-item-active" nav-clear menu-close ui-sref="app.cra">
+          CRA
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/playlists">
-          Playlists
+        <ion-item ui-sref-active="menu-item-active" nav-clear menu-close ui-sref="app.leave">
+          Congés
+        </ion-item>
+        <ion-item ui-sref-active="menu-item-active" ui-sref="app.login" nav-clear menu-close>
+          Login
         </ion-item>
       </ion-list>
     </ion-content>
