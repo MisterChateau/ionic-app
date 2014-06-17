@@ -1,63 +1,86 @@
 /* Empty. Add your own CSS if you like */
+
 /* color stuff */
-ion-content {
-	background: url("../img/eugena_bandeau.jpg") repeat;
-	-webkit-background-size: cover;
-
+ .item-complex .item-content, .item-radio .item-content {
+    background-color: #FFF;
+    border-color: #AAA;
+    color: #111111;
 }
-
-ion-content h1 {
-	color: #FFF;
-}
-
-.item-complex .item-content, .item-radio .item-content{
-	background-color: #FFF;
-	border-color:  #AAA;
-	color: #111111;
-}
-
 .view, .pane {
-	background-color: #FFF;
+    background: -webkit-linear-gradient(bottom, #162983, #4A87EE);
 }
-
 /* states & animation */
 
-
 /* Login page*/
-
-.logo {
-	display: block;
-	margin: 5px auto;
+ .logo {
+    display: block;
+    margin: 5px auto;
 }
-
-.login .item {
-	border-color: #4A87EE !important;
+.login label, .login .button {
+    margin: 5px 0;
+    width: 100%;
 }
-
-.login label, .login .button{
-	margin: 5px 0;
-	width: 100%;
+.login button {
+    background-color: #E2001A !important;
+    border-color: #A008 !important;
 }
 /* Leave page*/
-.leave .card{
-	width: 100%;
+ .leave .card {
+    width: 100%;
 }
-
-ion-content .button{
-	width: 100%;
-	margin-top: 10px;
+ion-content .button {
+    width: 100%;
+    margin-top: 10px;
 }
-
-.checkbox{
-	float: left;
+.event-wrapper {
+    background-color: #FFF !important;
+    margin-bottom: 5px;
 }
-
-.modal ion-content{
-	background-color: #FFF;
+.calendar-date {
+    border-right: 2px;
+    display: inline-block;
+    text-align: center;
+    width: 62px;
+    height: 62px;
+    color: #FFF;
+    background-color: #4680E6;
+    margin: 0 5px;
 }
-
-
+.calendar-date h2 {
+    font-size: 24px !important;
+    color: #FFF;
+    font-weight: bolder;
+}
+.checkbox {
+    float: left;
+}
+.modal ion-content {
+    background-color: #FFF;
+}
 /* Welcome page*/
+ .logo {
+    background: url("../img/eugena_logo_simple.png") no-repeat center center;
+    background-size: cover;
+    position: absolute;
+    top: 0%;
+    left: 85%;
+    width: 48px;
+    height: 48px;
+    z-index: 10;
+}
 
-
+.contact a{
+	color: #444444;
+	text-decoration: none;
+}
 /* Activity report page*/
+ .cra-item {
+    margin: 5px !important;
+    background-color: rgba(255, 255, 255, .3);
+}
+.cra-item .item {
+    background-color: rgba(255, 255, 255, 0);
+    border: 0 transparent;
+    color: #FFF !important;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .8);
+}
