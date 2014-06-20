@@ -22,8 +22,14 @@
         <ion-item ui-sref-active="menu-item-active" nav-clear menu-close ui-sref="app.leave">
           Congés
         </ion-item>
-        <ion-item ui-sref-active="menu-item-active" ui-sref="app.login" nav-clear menu-close>
-          Login
+        <ion-item ui-sref-active="menu-item-active" nav-clear menu-close ui-sref="app.about">
+          A propos 
+        </ion-item>
+        <ion-item ng-if="!isAuthenticated()" ui-sref-active="menu-item-active" nav-clear menu-close ui-sref="app.login">
+          Login 
+        </ion-item>
+        <ion-item ng-if="isAuthenticated()" nav-clear menu-close ui-sref="app.login" ng-click="disconnect()">
+          Déconnecter        
         </ion-item>
       </ion-list>
     </ion-content>

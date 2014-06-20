@@ -1,7 +1,7 @@
 angular.module('starter.services', [])
 
 .factory('loginFactory', [
-    function() {
+    function($rootScope) {
 
 
         return {
@@ -18,7 +18,7 @@ angular.module('starter.services', [])
         		}
         		else{
         			return {
-        				message: "login/password incorrect"
+        				error: "login/password incorrect"
         			}
         		}
         	}
@@ -73,7 +73,7 @@ angular.module('starter.services', [])
         				type_id: 0
         			}
         		}
-        	}
+        	},
         	delete: function(){
         		return {
         		}

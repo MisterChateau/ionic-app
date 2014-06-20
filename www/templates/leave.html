@@ -5,23 +5,33 @@
     <ion-nav-buttons side="right">
         <button ng-click="modal.show()" class="button button-icon icon ion-ios7-plus-empty"></button>
     </ion-nav-buttons>
+    <header class="bar bar-header bar-stable">
+      <h1 class="title">Congés</h1>
+    </header>
     <ion-content class="has-header leave">
-        <div class="row" ng-repeat="event in events | orderBy: 'start_date'">
+        <div class="row" ng-repeat="event in events | orderBy: 'event.start_date'">
               <div class="row event-wrapper">
                 <div class="col">
-                        <p>type: <b>{{event.type}}</b></p>
-                        <p>status: <b>{{event.state}}</b></p>
-                </div>
-                <div class="col">
-                    <div class="calendar-date">
-                        <h2>{{event.start_date | amDateFormat:'D MMM'}}</h2>  
+                        <p><span>type: <b>{{event.type}}</b></span> / <span>status: <b>{{event.state}}</b></span></p>
+                        <p></p>
+
+                    <div class="calendar-date padding">
+                        <span>{{event.start_date | amDateFormat:'D'}}</span>
+                        <span>{{event.start_date | amDateFormat:'MMM'}}</span>
+                        <small>{{event.start_date | amDateFormat:'YYYY'}}</small>
+                        <small ng-if="event.after_noon">à 12h</small>
+                        <small ng-if="!event.after_noon">&nbsp</small>
                     </div>
-                    <div class="calendar-date">
-                        <h2>{{event.end_date | amDateFormat:'D MMM'}}</h2>
+                    <div class="calendar-date padding">
+                        <span>{{event.end_date | amDateFormat:'D'}}</span>
+                        <span>{{event.end_date | amDateFormat:'MMM'}}</span>
+                        <small>{{event.end_date | amDateFormat:'YYYY'}}</small>
+                        <small ng-if="event.until_noon"> à 12h</small>
+                        <small ng-if="!event.until_noon">&nbsp</small>
                     </div>
                 </div>
                 <div ng-if="event.state === 'non validé'" class="item item-icon-right">
-                      <i class="icon fa fa-pencil-square-o" ng-click="editModal.show(); setEventIndex($index)"></i>
+                      <i class="icon fa fa-pencil-square-o" ng-click="editModal.show(); initEdit($index)"></i>
                 </div>
                 <div ng-if="event.state === 'validé'" class="item item-icon-right">
                       <i class="icon fa fa-check-square-o"></i>
@@ -39,7 +49,7 @@
             <form ng-submit="addLeave()">
               <label class="item item-input item-select">
                 <span class="input-label">Type</span>
-                <select ng-model="modal.type">
+                <select ng-model="newLeave.type" required>
                     <option>rtt</option>
                     <option>Anticipé</option>
                     <option>Annuel</option>
@@ -48,17 +58,17 @@
               </label>
               <label class="item item-input item-stacked-label">
                 <span class="input-label">Date de début</span>
-                <input type="date" ng-model="modal.start_date">
+                <input type="date" ng-model="newLeave.start_date">
               </label>
-              <label class="checkbox">
-                    <input class="checkbox" type="checkbox"><span>A partir de 12h</span>                   
+              <label class="item item-input">
+              <ion-checkbox ng-init="newLeave.after_noon = false" ng-model="newLeave.after_noon">A partir de 12h</ion-checkbox>
               </label>
               <label class="item item-input item-stacked-label">
                 <span class="input-label">Date de fin</span>
-                <input type="date" ng-model="modal.end_date">
+                <input type="date" ng-model="newLeave.end_date">
               </label>
-              <label class="checkbox">
-                    <input class="checkbox" type="checkbox"><span>A partir de 12h</span>                   
+              <label class="item item-input">
+              <ion-checkbox ng-init="newLeave.until_noon = false" ng-model="newLeave.until_noon">Jusqu à 12h</ion-checkbox>
               </label>
               <input type="submit" class="button button-positive padding" id="submit" value="Valider">
             </form>
@@ -69,13 +79,12 @@
       <div class="modal">
         <header class="bar bar-header bar-stable">
           <h1 class="title">Modifier congé</h1>
-          <div class="button button-clear pull-right" ng-click="editModal.hide()"><span class="icon ion-ios7-close-empty pull-right"></span></div>
         </header>
         <ion-content class="has-header">
             <form ng-submit="editModal.hide()">
               <label class="item item-input item-select">
                 <span class="input-label">Type</span>
-                <select ng-model="events[eventIndex].type">
+                <select ng-model="events[eventIndex].type" ng-selected="events[eventIndex].type">
                     <option>rtt</option>
                     <option>Anticipé</option>
                     <option>Annuel</option>
@@ -86,19 +95,20 @@
                 <span class="input-label">Date de début</span>
                 <input type="date" ng-model="events[eventIndex].start_date" placeholder="{{events[eventIndex].start_date}}">
               </label>
-              <label class="checkbox">
-                    <input class="checkbox" type="checkbox"><span>A partir de 12h</span>                   
+              <label class="item item-input">
+              <ion-checkbox ng-model="events[eventIndex].after_noon">A partir de 12h</ion-checkbox>
               </label>
               <label class="item item-input item-stacked-label">
                 <span class="input-label">Date de fin</span>
                 <input type="date" ng-model="events[eventIndex].end_date" placeholder="{{events[eventIndex].start_date}}">
               </label>
-              <label class="checkbox">
-                    <input class="checkbox" type="checkbox"><span>A partir de 12h</span>                   
+              <label class="item item-input">
+                  <ion-checkbox ng-model="events[eventIndex].until_noon">A partir de 12h</ion-checkbox>
               </label>
-              <input type="submit" class="button button-positive padding" id="submit" value="Editer">
-              <input class="button button-assertive padding" ng-click="deleteEvent(eventIndex)" value="Supprimer">
+                <input type="submit" class="button button-full button-small button-positive padding" id="submit" value="Editer">
             </form>
+              <button class="button button-small button-full button-energized padding" ng-click="cancelEdit()">Annuler</button>
+              <button class="button button-small button-full button-assertive padding" ng-click="deleteEvent(eventIndex)">Supprimer</button>
         </ion-content>
       </form>
     </script>

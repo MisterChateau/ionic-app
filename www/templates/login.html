@@ -1,10 +1,7 @@
 <ion-view>
-    <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-    </ion-nav-buttons>
-    <ion-content>
+    <ion-pane drag-content="false">
     <div class="row">
-        <img class="logo" src="img/eugena_logo.png">
+        <img class="logo-login" src="img/eugena_logo.png">
     </div>
     <div class="row">
         <div class="list col padding login">
@@ -15,9 +12,9 @@
                 <label class="item item-input">
                     <input type="password" placeholder="Password" ng-model="password">
                 </label>
-                <button ng-click="authenticate()" class="button button-positive padding">Valider</button>
+                <button ng-click="authenticate(login, password)" class="button button-positive padding">Valider</button>
             </div>
         </div>
     </div>
-    </ion-content>
+    </ion-pane>
 </ion-view>

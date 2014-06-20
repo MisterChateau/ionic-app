@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angularMoment'])
 
-.run(function($ionicPlatform, $rootScope, amMoment) {
+.run(function ($ionicPlatform, $rootScope, amMoment) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -24,6 +24,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
     //define API variable
     $rootScope.urlDefaultServer = "http://services.gdt.eugena.fr/gdtmobile/rest/";
     $rootScope.urlIdentification = "auth";
+
+    //check if user is already authenticated
+    $rootScope.isAuthenticated = function(){
+      if(localStorage.getItem('authenticated') != null){
+        return true;
+      }
+      else{
+        return false;
+      }
+
+    }
 })
 
 
@@ -39,16 +50,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
 
     .state('app.login', {
       url: '/login',
+      onEnter: function($state, $rootScope){
+        if($rootScope.isAuthenticated()){
+          $state.go('app.welcome');
+        }
+      },
       views: {
           'menuContent': {
               templateUrl: 'templates/login.html',
               controller: 'LoginCtrl'
-          } 
+          }
       }
     })
 
     .state('app.welcome',{
       url: '/welcome',
+      onEnter: function($state, $rootScope){
+        if(!$rootScope.isAuthenticated()){
+          $state.go('app.login');
+        }
+      },
       views: {
           'menuContent': {
               templateUrl: 'templates/welcome.html',
@@ -59,6 +80,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
 
     .state('app.cra', {
       url: '/cra',
+      onEnter: function($state, $rootScope){
+        if(!$rootScope.isAuthenticated()){
+          $state.go('app.login');
+        }
+      },
       views: {
           'menuContent': {
               templateUrl: 'templates/cra.html',
@@ -69,6 +95,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
 
      .state('app.leave', {
       url: '/leave',
+      onEnter: function($state, $rootScope){
+        if(!$rootScope.isAuthenticated()){
+          $state.go('app.login');
+        }
+      },
       views: {
           'menuContent': {
               templateUrl: 'templates/leave.html',
@@ -77,6 +108,57 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
       }
     })
 
+     .state('app.about', {
+      url: '/about',
+      onEnter: function($state, $rootScope){
+        if(!$rootScope.isAuthenticated()){
+          $state.go('app.login');
+        }
+      },
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/about.html',
+          controller: 'AboutCtrl'
+        }
+      }
+     })
+
+     .state('app.news', {
+        url: '/news',
+        onEnter: function($state, $rootScope){
+        if(!$rootScope.isAuthenticated()){
+          $state.go('app.login');
+        }
+      },
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/news.html',
+            controller: 'NewsCtrl'
+          }
+        }
+     })
+
+     .state('app.tweets', {
+      url: '/tweets',
+      onEnter: function($state, $rootScope){
+        if(!$rootScope.isAuthenticated()){
+          $state.go('app.login');
+        }
+      },
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/tweets.html',
+          controller: 'TweetsCtrl'
+        }
+      }
+     });
+
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    if(localStorage.getItem('authenticated') != null){
+      console.log(localStorage.getItem('authenticated'));
+      $urlRouterProvider.otherwise('/app/welcome');
+    }else{
+      console.log(localStorage.getItem('authenticated'));
+      $urlRouterProvider.otherwise('/app/login');
+    }
 });
