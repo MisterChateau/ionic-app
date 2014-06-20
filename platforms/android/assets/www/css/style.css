@@ -1,0 +1,43 @@
+/* Empty. Add your own CSS if you like */
+
+/* color stuff */
+ion-content {
+	background-color: #293B47;
+}
+
+ion-content h1 {
+	color: #FFF;
+}
+
+.item-complex .item-content, .item-radio .item-content{
+	background-color: #293B47;
+	border-color:  #293B47;
+	color: #FFF;
+}
+
+/* states & animation */
+.menu-item-active{
+	background-color: red;
+}
+
+/* Login page*/
+.login label, .login .button{
+	margin: 5px 0;
+	width: 100%;
+}
+/* Leave page*/
+.leave .card{
+	width: 100%;
+}
+
+.modal ion-content{
+	background-color: #FFF;
+}
+
+.modal #submit{
+	width: 100%;
+}
+/* Welcome page*/
+
+
+/* Activity report page*/

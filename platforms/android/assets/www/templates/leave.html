@@ -1,0 +1,48 @@
+<ion-view title="Congés">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button ng-click="modal.show()" class="button button-icon icon ion-ios7-plus-empty"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header leave">
+        <div class="row" ng-repeat="event in events">
+            <span class="card">
+                <div class="item item-text-wrap">
+                    <p>{{event.start_date | amDateFormat:'dddd, MMMM Do YYYY'}}</p>
+                </div>
+            </span>
+        </div>
+    </ion-content>
+    <script id="new-leave.html" type="text/ng-template">
+      <div class="modal">
+        <header class="bar bar-header bar-stable">
+          <h1 class="title">Nouveau congé</h1>
+          <div class="button button-clear pull-right" ng-click="modal.hide()"><span class="icon ion-ios7-close-empty"></span></div>
+        </header>
+        <ion-content class="has-header">
+            <form ng-submit="addLeave()">
+              <label class="item item-input item-select">
+                <span class="input-label">Type</span>
+                <select ng-model="type">
+                    <option>rtt</option>
+                    <option>Anticipé</option>
+                    <option>Annuel</option>
+                    <option>Sans Solde</option>
+                </select>
+              </label>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Date de début</span>
+                <input type="date" ng-model="modal.start_date">
+              </label>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Date de fin</span>
+                <input type="date" ng-model="modal.end_date">
+              </label>
+              <label></label>
+              <input type="submit" class="button button-positive padding" id="submit" value="Valider">
+            </form>
+        </ion-content>
+      </form>
+    </script>
+</ion-view>
